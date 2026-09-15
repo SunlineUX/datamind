@@ -117,9 +117,9 @@ onBeforeUnmount(clearTimer);
   border-style: solid;
   border-color: transparent;
 }
-.dm-tooltip__arrow.is-top { border-width: 0 4px 4px; border-bottom-color: var(--text-primary); }
-.dm-tooltip__arrow.is-bottom { border-width: 4px 4px 0; border-top-color: var(--text-primary); }
-.dm-tooltip__arrow.is-left { border-width: 4px 0 4px 4px; border-right-color: var(--text-primary); }
+.dm-tooltip__arrow.is-top { right: auto; bottom: 100%; border-width: 0 4px 4px; border-bottom-color: var(--text-primary); }
+.dm-tooltip__arrow.is-bottom { right: auto; border-width: 4px 4px 0; border-top-color: var(--text-primary); }
+.dm-tooltip__arrow.is-left { right: 100%; border-width: 4px 0 4px 4px; border-right-color: var(--text-primary); }
 .dm-tooltip__arrow.is-right { border-width: 4px 4px 4px 0; border-left-color: var(--text-primary); }
 
 /* 淡入动画 */

@@ -185,9 +185,9 @@ onBeforeUnmount(() => {
   border-style: solid;
   border-color: transparent;
 }
-.dm-popover__arrow.is-top { border-width: 0 5px 5px; border-bottom-color: var(--bg-overlay); }
-.dm-popover__arrow.is-bottom { border-width: 5px 5px 0; border-top-color: var(--bg-overlay); }
-.dm-popover__arrow.is-left { border-width: 5px 0 5px 5px; border-right-color: var(--bg-overlay); }
+.dm-popover__arrow.is-top { right: auto; bottom: 100%; border-width: 0 5px 5px; border-bottom-color: var(--bg-overlay); }
+.dm-popover__arrow.is-bottom { right: auto; border-width: 5px 5px 0; border-top-color: var(--bg-overlay); }
+.dm-popover__arrow.is-left { right: 100%; border-width: 5px 0 5px 5px; border-right-color: var(--bg-overlay); }
 .dm-popover__arrow.is-right { border-width: 5px 5px 5px 0; border-left-color: var(--bg-overlay); }
 
 /* 淡入 + 轻微缩放动画 */

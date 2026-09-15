@@ -159,12 +159,12 @@ function selectDomain(key) {
 }
 
 .v33-sidebar__brand {
-    height: 41px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 10px 0 12px;
-    border-bottom: 1px solid var(--border-lighter);
+    /* border-bottom: 1px solid var(--border-lighter); */
     box-sizing: border-box;
     box-shadow: var(--shadow-xs);
     z-index: 2;
@@ -269,8 +269,9 @@ function selectDomain(key) {
 
 .v33-sidebar__menu {
     flex: 1;
-    overflow: auto;
-    padding: 9px 7px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 var(--space-sm) var(--space-sm);
 }
 
 .v33-menu-group {
@@ -409,8 +410,8 @@ function selectDomain(key) {
 }
 
 .v33-sidebar.is-closed .v33-sidebar__menu {
-    padding-left: 7px;
-    padding-right: 7px;
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
 }
 
 .v33-sidebar__mode-picker {
