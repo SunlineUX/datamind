@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XUI 柱状图 - 原生 JS 示例</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #666;
+    }
+
+    .chart-section {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .chart-section h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .chart-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+    }
+
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .controls button {
+      padding: 8px 16px;
+      background: #1890ff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .controls button:hover {
+      background: #40a9ff;
+    }
+
+    .controls button:active {
+      background: #096dd9;
+    }
+
+    .info {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f9ff;
+      border-left: 4px solid #1890ff;
+      border-radius: 4px;
+    }
+
+    .info h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .info ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .info li {
+      color: #666;
+      margin-bottom: 5px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .info li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #1890ff;
+    }
+
+    .code-block {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 10px;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>XUI 柱状图组件 - 原生 JS 示例</h1>
+      <p>基于原生 JavaScript + SVG 实现的跨框架图表组件</p>
+    </div>
+
+    <div class="chart-section">
+      <h2>基础柱状图</h2>
+      <div id="chart1" class="chart-container"></div>
+      <div class="controls">
+        <button onclick="updateChart1()">更新数据</button>
+        <button onclick="resizeChart1()">调整大小</button>
+        <button onclick="resetChart1()">重置</button>
+      </div>
+    </div>
+
+    <div class="chart-section">
+      <h2>自定义样式柱状图</h2>
+      <div id="chart2" class="chart-container"></div>
+      <div class="controls">
+        <button onclick="updateChart2()">更新数据</button>
+        <button onclick="toggleGrid()">切换网格</button>
+      </div>
+    </div>
+
+    <div class="info">
+      <h3>使用说明</h3>
+      <ul>
+        <li>基于原生 JavaScript 实现，不依赖任何框架</li>
+        <li>使用 SVG 渲染，支持响应式设计</li>
+        <li>提供丰富的配置选项和事件回调</li>
+        <li>支持 Vue、React 和原生 HTML+JS 项目</li>
+      </ul>
+      <div class="code-block">
+        <pre>
+// 基础用法
+const chart = new BarChart('#container', {
+  data: [
+    { label: '一月', value: 120 },
+    { label: '二月', value: 200 },
+    { label: '三月', value: 150 }
+  ],
+  title: '销售数据',
+  xAxisLabel: '月份',
+  yAxisLabel: '销售额'
+});
+
+// 更新数据
+chart.update(newData);
+
+// 调整大小
+chart.resize(800, 500);
+
+// 销毁图表
+chart.destroy();
+        </pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="./chart.js"></script>
+  <script>
+    // 示例 1: 基础柱状图
+    const data1 = [
+      { label: '一月', value: 120 },
+      { label: '二月', value: 200 },
+      { label: '三月', value: 150 },
+      { label: '四月', value: 80 },
+      { label: '五月', value: 70 },
+      { label: '六月', value: 110 }
+    ];
+
+    const chart1 = new BarChart('#chart1', {
+      data: data1,
+      title: '月度销售数据',
+      xAxisLabel: '月份',
+      yAxisLabel: '销售额 (万元)',
+      onBarClick: (item, index) => {
+        console.log('点击了柱子:', item, index);
+        alert(`点击了 ${item.label}: ${item.value}`);
+      },
+      onBarHover: (item, index) => {
+        console.log('悬停在柱子上:', item, index);
+      }
+    });
+
+    function updateChart1() {
+      const newData = data1.map(item => ({
+        label: item.label,
+        value: Math.floor(Math.random() * 200) + 50
+      }));
+      chart1.update(newData);
+    }
+
+    function resizeChart1() {
+      const width = Math.floor(Math.random() * 400) + 400;
+      const height = Math.floor(Math.random() * 200) + 300;
+      chart1.resize(width, height);
+    }
+
+    function resetChart1() {
+      chart1.update(data1);
+      chart1.resize(600, 400);
+    }
+
+    // 示例 2: 自定义样式柱状图
+    const data2 = [
+      { label: '产品A', value: 320 },
+      { label: '产品B', value: 280 },
+      { label: '产品C', value: 450 },
+      { label: '产品D', value: 380 },
+      { label: '产品E', value: 290 }
+    ];
+
+    const chart2 = new BarChart('#chart2', {
+      data: data2,
+      width: 700,
+      height: 450,
+      colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7'],
+      barWidth: 50,
+      barGap: 30,
+      title: '产品销量统计',
+      xAxisLabel: '产品名称',
+      yAxisLabel: '销量 (件)',
+      showGrid: true,
+      showAxis: true,
+      animationDuration: 800,
+      animationEasing: 'easeInOutCubic'
+    });
+
+    function updateChart2() {
+      const newData = data2.map(item => ({
+        label: item.label,
+        value: Math.floor(Math.random() * 400) + 100
+      }));
+      chart2.update(newData);
+    }
+
+    function toggleGrid() {
+      const currentOptions = chart2.options;
+      chart2.updateOptions({
+        ...currentOptions,
+        showGrid: !currentOptions.showGrid
+      });
+    }
+  </script>
+</body>
+</html>
