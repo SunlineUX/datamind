@@ -7,18 +7,18 @@
         <DmPopover trigger="click" placement="bottomLeft">
           <template #default>
             <DmButton type="secondary" size="small">
-              <Icon name="plus" :size="14" />
+              <DmIcon name="CircleAdd" :size="14" />
               <span>{{ t('layout.work.create') }}</span>
             </DmButton>
           </template>
           <template #content>
             <div class="codespace__menu">
               <div class="codespace__menu-item" @click="createFolder('scene')">
-                <Icon name="landscape" :size="15" />
+                <DmIcon name="FolderPerson" :size="15" />
                 <span>{{ t('develop.groups.scene') }}</span>
               </div>
               <div class="codespace__menu-item" @click="createFolder('folder')">
-                <Icon name="folder" :size="15" />
+                <DmIcon name="Folder" :size="15" />
                 <span>{{ t('develop.menuFolder') }}</span>
               </div>
               <div class="codespace__menu-divider" />
@@ -30,7 +30,7 @@
                 @click="createNode(type)"
               >
                 <span v-if="type === 'batch-modeling'" class="codespace__sql">SQL</span>
-                <Icon v-else :name="typeMeta[type].menuIcon" :size="14" />
+                <DmIcon v-else :name="typeMeta[type].menuIcon" :size="14" />
                 <span>{{ t(`develop.menu.${type}`) }}</span>
               </div>
               <div class="codespace__menu-divider" />
@@ -41,7 +41,7 @@
                 class="codespace__menu-item"
                 @click="createNode(type)"
               >
-                <Icon :name="typeMeta[type].menuIcon" :size="14" />
+                <DmIcon :name="typeMeta[type].menuIcon" :size="14" />
                 <span>{{ t(`develop.menu.${type}`) }}</span>
               </div>
             </div>
@@ -49,20 +49,20 @@
         </DmPopover>
         <span class="codespace__head-spacer" />
         <button class="codespace__tool" :title="t('develop.searchPlaceholder')" @click="focusSearch">
-          <Icon name="search" :size="15" />
+          <DmIcon name="Search" :size="15" />
         </button>
         <button class="codespace__tool" :title="t('develop.refresh')" @click="resetTree">
-          <Icon name="refresh" :size="15" />
+          <DmIcon name="Refresh" :size="15" />
         </button>
         <button
           :class="['codespace__tool', { 'is-on': sortMode }]"
           :title="t('develop.sort')"
           @click="sortMode = !sortMode"
         >
-          <Icon name="list" :size="15" />
+          <DmIcon name="Category" :size="15" />
         </button>
         <button class="codespace__tool codespace__tool--separated" :title="t('develop.toggleDirectory')" @click="dirVisible = false">
-          <Icon name="panel-left" :size="15" />
+          <DmIcon name="LayoutLeft" :size="15" />
         </button>
       </div>
 
@@ -76,12 +76,12 @@
         <template v-for="node in visibleTree" :key="node.key">
           <!-- 文件夹 -->
           <div v-if="node.kind === 'folder'" class="codespace__row codespace__row--folder" @click="onRowClick(node, $event)">
-            <Icon
-              name="chevron-down"
+            <DmIcon
+              name="ArrowDown"
               :size="13"
               :class="['codespace__chevron', { 'is-collapsed': !isExpanded(node) }]"
             />
-            <Icon :name="node.scene ? 'landscape' : 'folder'" :size="14" class="codespace__file-icon" />
+            <DmIcon :name="node.scene ? 'FolderPerson' : 'Folder'" :size="14" class="codespace__file-icon" />
             <input
               v-if="renamingKey === node.key"
               v-focus
@@ -104,7 +104,7 @@
               @click="onFileClick(child, $event)"
             >
               <span v-if="child.type === 'batch-modeling'" class="codespace__sql">SQL</span>
-              <Icon v-else :name="typeMeta[child.type].icon" :size="14" class="codespace__file-icon" />
+              <DmIcon v-else :name="typeMeta[child.type].icon" :size="14" class="codespace__file-icon" />
               <input
                 v-if="renamingKey === child.key"
                 v-focus
@@ -128,7 +128,7 @@
             :class="['codespace__row', 'codespace__row--file', { 'is-active': activeTabKey === node.key }]"
             @click="onFileClick(node, $event)"
           >
-            <Icon :name="node.icon" :size="14" class="codespace__file-icon" />
+            <DmIcon :name="node.icon" :size="14" class="codespace__file-icon" />
             <input
               v-if="renamingKey === node.key"
               v-focus
@@ -153,7 +153,7 @@
     <div class="codespace__main">
       <div class="codespace__tabs">
         <button class="codespace__dir-toggle" :title="t('develop.toggleDirectory')" @click="dirVisible = !dirVisible">
-          <Icon name="panel-left" :size="15" />
+          <DmIcon name="LayoutLeft" :size="15" />
         </button>
         <div
           v-for="tab in tabs"
@@ -162,10 +162,10 @@
           @click="activeTabKey = tab.key"
         >
           <span v-if="tab.type === 'batch-modeling'" class="codespace__sql">SQL</span>
-          <Icon v-else :name="typeMeta[tab.type].icon" :size="13" class="codespace__tab-icon" />
+          <DmIcon v-else :name="typeMeta[tab.type].icon" :size="13" class="codespace__tab-icon" />
           <span class="codespace__tab-name">{{ tab.name }}</span>
           <span class="codespace__tab-close" @click.stop="closeTab(tab.key)">
-            <Icon name="x" :size="12" />
+            <DmIcon name="Close" :size="12" />
           </span>
         </div>
       </div>
@@ -187,7 +187,7 @@
         />
         <!-- 空态 -->
         <div v-else class="codespace__empty">
-          <Icon name="file-text" :size="28" />
+          <DmIcon name="FileText" :size="28" />
           <div class="codespace__empty-title">{{ t('develop.emptyTitle') }}</div>
           <div class="codespace__empty-hint">{{ t('develop.emptyHint') }}</div>
         </div>
@@ -199,7 +199,6 @@
 <script setup>
 import { computed, h, ref } from 'vue';
 import { DmPopover, DmButton, DmInput, DmIcon } from '@/components/dm';
-import { Icon } from '@/layout/icons';
 import { useLocale } from '@/composables/useLocale';
 import { FORM_SCHEMAS, SQL_TEMPLATES, defaultFormData } from './develop/schemas';
 import SqlEditor from './develop/SqlEditor.vue';
@@ -212,12 +211,12 @@ const vFocus = { mounted: (el) => el.focus() };
 
 /* ---------- 节点类型 ---------- */
 const typeMeta = {
-  'batch-modeling': { icon: 'table', menuIcon: 'table', kind: 'sql' },
-  'batch-script': { icon: 'code', kind: 'sql' },
-  'batch-schedule': { icon: 'workflow', kind: 'form' },
-  'batch-exchange': { icon: 'swap', kind: 'form' },
-  'realtime-compute': { icon: 'zap', kind: 'sql' },
-  'realtime-collect': { icon: 'database', kind: 'sql' },
+  'batch-modeling': { icon: 'Table', menuIcon: 'Table', kind: 'sql' },
+  'batch-script': { icon: 'Code', kind: 'sql' },
+  'batch-schedule': { icon: 'Dataflow01', kind: 'form' },
+  'batch-exchange': { icon: 'Swap', kind: 'form' },
+  'realtime-compute': { icon: 'Sparkle', kind: 'sql' },
+  'realtime-collect': { icon: 'Database01', kind: 'sql' },
 };
 const BATCH_TYPES = ['batch-modeling', 'batch-script', 'batch-schedule', 'batch-exchange'];
 const REALTIME_TYPES = ['realtime-compute', 'realtime-collect'];
@@ -251,8 +250,8 @@ function buildInitialTree() {
     f1,
     makeFolder('11月18资产'),
     makeFolder('12月01资产'),
-    { key: nextKey(), kind: 'static', icon: 'code', name: '报表预览.html' },
-    { key: nextKey(), kind: 'static', icon: 'table', name: 'ai_create.xlsl' },
+    { key: nextKey(), kind: 'static', icon: 'Code', name: '报表预览.html' },
+    { key: nextKey(), kind: 'static', icon: 'Table', name: 'ai_create.xlsl' },
   ];
 }
 

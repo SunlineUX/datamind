@@ -16,10 +16,10 @@
     <header class="dm-ai__header">
       <span class="dm-ai__brand">Nova</span>
       <div class="dm-ai__actions">
-        <button class="dm-icon-btn"><Icon name="maximize" :size="14" /></button>
-        <button class="dm-icon-btn"><Icon name="clock" :size="14" /></button>
+        <button class="dm-icon-btn"><DmIcon name="ScreenFull" :size="14" /></button>
+        <button class="dm-icon-btn"><DmIcon name="Clock" :size="14" /></button>
         <button class="dm-icon-btn" @click="emit('collapse')">
-          <Icon name="x" :size="14" />
+          <DmIcon name="Close" :size="14" />
         </button>
       </div>
     </header>
@@ -32,7 +32,7 @@
           <div class="dm-ai__user-bubble">
             <div v-if="msg.attachments?.length" class="dm-ai__attachments">
               <div v-for="att in msg.attachments" :key="att" class="dm-ai__attachment">
-                <Icon name="file-text" :size="13" />
+                <DmIcon name="FileText" :size="13" />
                 <span class="dm-ai__attachment-name">{{ tr(att) }}</span>
                 <span class="dm-ai__attachment-count">{{ t('ai.attachmentCount', { n: msg.attachments.length }) }}</span>
               </div>
@@ -48,7 +48,7 @@
             <button class="dm-ai__thinking-toggle" @click="msg.thinkingOpen = !msg.thinkingOpen">
               {{ t('ai.thinking') }}
               <span :class="['dm-ai__chevron', { 'is-open': msg.thinkingOpen }]">
-                <Icon name="chevron-up" :size="12" />
+                <DmIcon name="ArrowUp" :size="12" />
               </span>
             </button>
             <p v-show="msg.thinkingOpen" class="dm-ai__thinking-summary">{{ tr(msg.thinkingKey) }}</p>
@@ -62,17 +62,17 @@
             <!-- 命令执行卡片 -->
             <div v-else-if="block.type === 'command'" class="dm-ai__card">
               <button class="dm-ai__card-header" @click="block.open = !block.open">
-                <Icon name="terminal" :size="13" />
+                <DmIcon name="Terminal" :size="13" />
                 <span class="dm-ai__card-title">{{ t('ai.command') }}</span>
                 <span :class="['dm-ai__chevron', { 'is-open': block.open }]">
-                  <Icon name="chevron-up" :size="12" />
+                  <DmIcon name="ArrowUp" :size="12" />
                 </span>
               </button>
               <div v-show="block.open" class="dm-ai__card-body">
                 <div class="dm-ai__command">
                   <code>{{ block.command }}</code>
                   <button class="dm-icon-btn dm-ai__copy" @click="copyCommand(block)">
-                    <Icon :name="copied === block ? 'check' : 'copy'" :size="13" />
+                    <DmIcon :name="copied === block ? 'Choose' : 'Copy'" :size="13" />
                   </button>
                 </div>
               </div>
@@ -81,10 +81,10 @@
             <!-- 执行成功卡片 -->
             <div v-else-if="block.type === 'success'" class="dm-ai__card">
               <button class="dm-ai__card-header" @click="block.open = !block.open">
-                <Icon name="check-circle" :size="13" class="is-success" />
+                <DmIcon name="CouponCheck" :size="13" class="is-success" />
                 <span class="dm-ai__card-title">{{ t('ai.success') }}</span>
                 <span :class="['dm-ai__chevron', { 'is-open': block.open }]">
-                  <Icon name="chevron-up" :size="12" />
+                  <DmIcon name="ArrowUp" :size="12" />
                 </span>
               </button>
               <div v-show="block.open" class="dm-ai__card-body">
@@ -100,12 +100,12 @@
             <div v-else-if="block.type === 'files'" class="dm-ai__files">
               <p class="dm-ai__files-note">{{ tr(block.noteKey) }}</p>
               <div v-for="(f, fi) in block.items" :key="fi" class="dm-ai__file-row">
-                <Icon name="file" :size="14" class="dm-ai__file-row-icon" />
+                <DmIcon name="File" :size="14" class="dm-ai__file-row-icon" />
                 <span class="dm-ai__file-name">{{ tr(f.nameKey) }}</span>
                 <span class="dm-ai__file-space">{{ tr(f.spaceKey) }}</span>
                 <span class="dm-ai__diff is-add">+{{ f.added }}</span>
                 <span class="dm-ai__diff is-del">-{{ f.removed }}</span>
-                <Icon name="chevron-right" :size="13" class="dm-ai__file-arrow" />
+                <DmIcon name="ArrowRight" :size="13" class="dm-ai__file-arrow" />
               </div>
             </div>
           </template>
@@ -116,11 +116,11 @@
     <!-- 底部输入区 -->
     <footer class="dm-ai__footer">
       <div v-if="pendingVisible" class="dm-ai__pending">
-        <Icon name="swap" :size="13" />
+        <DmIcon name="Swap" :size="13" />
         <span class="dm-ai__pending-text">{{ t('ai.generatedFiles', { n: pendingCount }) }}</span>
-        <button class="dm-icon-btn" @click="pendingVisible = false"><Icon name="x" :size="13" /></button>
+        <button class="dm-icon-btn" @click="pendingVisible = false"><DmIcon name="Close" :size="13" /></button>
         <button class="dm-ai__pending-confirm" @click="pendingVisible = false">
-          <Icon name="check" :size="14" />
+          <DmIcon name="Choose" :size="14" />
         </button>
       </div>
 
@@ -134,23 +134,23 @@
         />
         <div class="dm-ai__input-bar">
           <div class="dm-ai__input-left">
-            <button class="dm-icon-btn"><Icon name="paperclip" :size="14" /></button>
-            <button class="dm-icon-btn"><Icon name="at" :size="14" /></button>
-            <button class="dm-icon-btn"><Icon name="hash" :size="14" /></button>
+            <button class="dm-icon-btn"><DmIcon name="Attachment" :size="14" /></button>
+            <button class="dm-icon-btn"><DmIcon name="Reply" :size="14" /></button>
+            <button class="dm-icon-btn"><DmIcon name="QRCode" :size="14" /></button>
           </div>
           <div class="dm-ai__input-right">
             <span class="dm-ai__plan">
-              <Icon name="compass" :size="12" />
+              <DmIcon name="Compass" :size="12" />
               {{ t('ai.plan') }}
             </span>
             <DmDropdown :menu="modelMenu" trigger="click" placement="topRight" @click="model = $event">
               <button class="dm-ai__model">
                 {{ model }}
-                <Icon name="chevron-down" :size="11" />
+                <DmIcon name="ArrowDown" :size="11" />
               </button>
             </DmDropdown>
             <button class="dm-ai__send" @click="handleSend">
-              <Icon name="send" :size="14" />
+              <DmIcon name="Reply" :size="14" />
             </button>
           </div>
         </div>
@@ -162,7 +162,7 @@
 <script setup>
 import { nextTick, ref, onMounted, onBeforeUnmount } from 'vue';
 import DmDropdown from '../components/dm/DmDropdown.vue';
-import { Icon } from './icons';
+import { DmIcon } from '../components/dm';
 import { useLocale } from '../composables/useLocale';
 
 const emit = defineEmits(['collapse', 'send', 'resize']);

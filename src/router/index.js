@@ -1,18 +1,45 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import AppLayout from '../layout/AppLayout.vue';
-import HomeView from '../views/AIVersion/HomeView.vue';
-import PlaceholderView from '../views/AIVersion/PlaceholderView.vue';
-import { useLocale } from '../composables/useLocale';
+import AiLayout from '@/layout/AiLayout.vue';
+import HomeView from '@/views/AIVersion/HomeView.vue';
+import Layout from '@/views/v3.3/layout/Layout.vue';
+import PlaceholderView from '@/views/AIVersion/PlaceholderView.vue';
+import { useLocale } from '@/composables/useLocale';
 
 const routes = [
   {
     path: '/',
-    component: AppLayout,
+    component: Layout,
     redirect: '/home',
     children: [
       {
         path: 'home',
         name: 'home',
+        component: () => import('@/views/v3.3/Home.vue'),
+        meta: { titleKey: 'app.title' }
+      },
+      {
+        path: ':pathMatch(.*)*',
+        name: 'v33-placeholder',
+        component: PlaceholderView,
+        meta: { titleKey: 'app.title' }
+      },
+    ]
+  },
+  {
+    path: '/design',
+    name: 'components',
+    component: () => import('@/views/ComponentsView.vue'),
+    meta: { titleKey: 'components.title' }
+  },
+  {
+    path: '/nova',
+    name: 'nova',
+    component: AiLayout,
+    redirect: '/nova/home',
+    children: [
+      {
+        path: 'home',
+        name: 'aihome',
         component: HomeView,
         meta: { titleKey: 'app.title' }
       },
@@ -53,19 +80,7 @@ const routes = [
         component: () => import('../views/AIVersion/Search.vue'),
         meta: { titleKey: 'layout.nav.search' }
       },
-      // {
-      //   path: 'design',
-      //   name: 'components',
-      //   component: () => import('../views/ComponentsView.vue'),
-      //   meta: { titleKey: 'components.title' }
-      // }
     ]
-  },
-  {
-    path: '/design',
-    name: 'components',
-    component: () => import('../views/ComponentsView.vue'),
-    meta: { titleKey: 'components.title' }
   }
 ];
 

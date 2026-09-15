@@ -6,11 +6,11 @@
 
     <div class="dm-work__actions">
       <button class="dm-work__new" @click="emit('create')">
-        <Icon name="plus" :size="13" />
+        <DmIcon name="CircleAdd" :size="13" />
         <span>{{ t('layout.work.create') }}</span>
       </button>
       <button class="dm-icon-btn" :data-tip="t('layout.work.organize')" @click="emit('collapse')">
-        <Icon name="swap" :size="14" />
+        <DmIcon name="Swap" :size="14" />
       </button>
     </div>
 
@@ -23,9 +23,9 @@
           @click="node.open = !node.open"
         >
           <span :class="['dm-work__chevron', { 'is-open': node.open }]">
-            <Icon name="chevron-right" :size="12" />
+            <DmIcon name="ArrowRight" :size="12" />
           </span>
-          <Icon name="folder" :size="14" />
+          <DmIcon name="Folder" :size="14" />
           <span class="dm-work__name">{{ node.name }}</span>
         </button>
 
@@ -38,7 +38,7 @@
             @click="activeFile = child.name"
           >
             <span class="dm-work__indent" />
-            <Icon :name="child.icon" :size="14" :class="['dm-work__file-icon', `is-${child.icon}`]" />
+            <DmIcon :name="child.icon" :size="14" :class="['dm-work__file-icon', `is-${child.icon}`]" />
             <span class="dm-work__name">{{ child.name }}</span>
           </button>
         </template>
@@ -49,7 +49,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
-import { Icon } from './icons';
+import { DmIcon } from '../components/dm';
 import { useLocale } from '../composables/useLocale';
 
 const emit = defineEmits(['create', 'collapse']);
@@ -64,9 +64,9 @@ const tree = reactive([
     name: '9月23日资产',
     open: true,
     children: [
-      { type: 'file', name: 'Create table', icon: 'table' },
-      { type: 'file', name: '通用需求记录', icon: 'file-text' },
-      { type: 'file', name: '实时开发任务-数据排查', icon: 'zap' },
+      { type: 'file', name: 'Create table', icon: 'Table' },
+      { type: 'file', name: '通用需求记录', icon: 'FileText' },
+      { type: 'file', name: '实时开发任务-数据排查', icon: 'Sparkle' },
     ],
   },
 ]);
@@ -165,8 +165,8 @@ const tree = reactive([
 }
 
 .dm-work__file-icon { color: var(--text-tertiary); }
-.dm-work__file-icon.is-table { color: var(--brand); }
-.dm-work__file-icon.is-zap { color: var(--warning); }
+.dm-work__file-icon.is-Table { color: var(--brand); }
+.dm-work__file-icon.is-Sparkle { color: var(--warning); }
 
 .dm-work__file.is-active {
   color: var(--brand);

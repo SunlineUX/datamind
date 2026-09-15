@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="dm-monitor__stat-icon">
-          <Icon :name="card.icon" :size="22" />
+          <DmIcon :name="card.icon" :size="22" />
         </div>
       </div>
     </section>
@@ -28,17 +28,17 @@
       <!-- 左侧：任务分组树 -->
       <aside class="dm-monitor__tree">
         <div class="dm-monitor__tree-search">
-          <Icon name="search" :size="14" class="dm-monitor__tree-search-icon" />
+          <DmIcon name="Search" :size="14" class="dm-monitor__tree-search-icon" />
           <input
             v-model="treeKeyword"
             :placeholder="t('monitor.treeSearch')"
             class="dm-monitor__tree-search-input"
           />
           <button class="dm-monitor__tree-action" :title="t('monitor.treeExpandAll')" @click="expandAllTree">
-            <Icon name="panel-left" :size="14" />
+            <DmIcon name="LayoutLeft" :size="14" />
           </button>
           <button class="dm-monitor__tree-action" :title="t('monitor.treeCollapseAll')" @click="collapseAllTree">
-            <Icon name="panel-right" :size="14" />
+            <DmIcon name="LayoutRight" :size="14" />
           </button>
         </div>
         <ul class="dm-monitor__tree-list">
@@ -49,12 +49,12 @@
             :class="{ 'is-open': treeOpenSet.has(node.key) }"
           >
             <div class="dm-monitor__tree-row" @click="toggleNode(node.key)">
-              <Icon
-                :name="treeOpenSet.has(node.key) ? 'chevron-down' : 'chevron-right'"
+              <DmIcon
+                :name="treeOpenSet.has(node.key) ? 'ArrowDown' : 'ArrowRight'"
                 :size="14"
                 class="dm-monitor__tree-chevron"
               />
-              <Icon :name="node.icon" :size="14" class="dm-monitor__tree-icon" />
+              <DmIcon :name="node.icon" :size="14" class="dm-monitor__tree-icon" />
               <span class="dm-monitor__tree-label">{{ node.label }}</span>
             </div>
             <ul v-if="node.children" class="dm-monitor__tree-children">
@@ -66,7 +66,7 @@
               >
                 <div class="dm-monitor__tree-row" @click="activeGroup = child.key">
                   <span class="dm-monitor__tree-chevron dm-monitor__tree-chevron--placeholder" />
-                  <Icon name="folder" :size="14" class="dm-monitor__tree-icon" />
+                  <DmIcon name="Folder" :size="14" class="dm-monitor__tree-icon" />
                   <span class="dm-monitor__tree-label">{{ child.label }}</span>
                 </div>
               </li>
@@ -86,7 +86,7 @@
               class="dm-monitor__toolbar-input"
             />
             <button class="dm-monitor__toolbar-search-btn">
-              <Icon name="search" :size="14" />
+              <DmIcon name="Search" :size="14" />
             </button>
           </div>
           <div class="dm-monitor__filter">
@@ -99,7 +99,7 @@
             >{{ t(`monitor.filter${tab.label}`) }}</button>
           </div>
           <button class="dm-monitor__refresh-btn" @click="refreshTable">
-            <Icon name="swap" :size="14" />
+            <DmIcon name="Swap" :size="14" />
           </button>
         </div>
 
@@ -127,20 +127,20 @@
                   >{{ t(`monitor.status${row.status === 'developing' ? 'Developing' : 'Published'}`) }}</span>
                 </td>
                 <td class="col-mode">
-                  <Icon name="clock" :size="12" class="dm-monitor__mode-history" />
+                  <DmIcon name="Clock" :size="12" class="dm-monitor__mode-history" />
                   <span class="dm-monitor__mode-label">{{ t('monitor.modeHistory') }}</span>
                   <span class="dm-monitor__mode-type">{{ row.mode }}</span>
                 </td>
                 <td class="col-jobid">
                   <div class="dm-monitor__jobid">{{ row.flinkJobId }}</div>
-                  <Icon name="copy" :size="12" class="dm-monitor__copy-btn" @click="copyJobId(row.flinkJobId)" />
+                  <DmIcon name="Copy" :size="12" class="dm-monitor__copy-btn" @click="copyJobId(row.flinkJobId)" />
                 </td>
                 <td>{{ row.owner }}</td>
                 <td>{{ row.maintainer }}</td>
                 <td class="col-date">{{ row.createdAt }}</td>
                 <td class="col-action">
                   <button class="dm-monitor__view-btn" :title="t('monitor.view')">
-                    <Icon name="check-circle" :size="14" />
+                    <DmIcon name="CouponCheck" :size="14" />
                   </button>
                 </td>
               </tr>
@@ -155,7 +155,7 @@
             :disabled="page === 1"
             @click="page--"
           >
-            <Icon name="chevron-left" :size="14" />
+            <DmIcon name="ArrowLeft" :size="14" />
           </button>
           <button
             v-for="p in totalPages"
@@ -169,7 +169,7 @@
             :disabled="page === totalPages"
             @click="page++"
           >
-            <Icon name="chevron-right" :size="14" />
+            <DmIcon name="ArrowRight" :size="14" />
           </button>
         </div>
       </div>
@@ -179,54 +179,54 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue';
-import { Icon } from '../layout/icons';
-import { useLocale } from '../composables/useLocale';
+import { DmIcon } from '@/components/dm';
+import { useLocale } from '@/composables/useLocale';
 
 const { t } = useLocale();
 
 /* ============== Mock 数据 ============== */
 
 const statsCards = [
-  { key: 'total',     count: 84, icon: 'zap' },
-  { key: 'running',   count: 0,  icon: 'play' },
-  { key: 'canceled',  count: 21, icon: 'x' },
-  { key: 'failed',    count: 8,  icon: 'alert' },
-  { key: 'restarting',count: 0,  icon: 'refresh' },
-  { key: 'completed', count: 1,  icon: 'check-circle' },
-  { key: 'unknown',   count: 16, icon: 'compass' },
+  { key: 'total',     count: 84, icon: 'Sparkle' },
+  { key: 'running',   count: 0,  icon: 'ArrowRight' },
+  { key: 'canceled',  count: 21, icon: 'Close' },
+  { key: 'failed',    count: 8,  icon: 'Remind' },
+  { key: 'restarting',count: 0,  icon: 'Refresh' },
+  { key: 'completed', count: 1,  icon: 'CouponCheck' },
+  { key: 'unknown',   count: 16, icon: 'Compass' },
 ];
 
 const treeData = [
   {
-    key: 'group-a', icon: 'folder', label: '数据采集',
+    key: 'group-a', icon: 'Folder', label: '数据采集',
     children: [
-      { key: 'rt-mysql-pg',  icon: 'folder', label: '实时数据采集 Mysql->PG' },
-      { key: 'rt-mq-sync',   icon: 'folder', label: '实时采集+计算' },
-      { key: 'test-of-sync', icon: 'folder', label: 'test_of_sync' },
+      { key: 'rt-mysql-pg',  icon: 'Folder', label: '实时数据采集 Mysql->PG' },
+      { key: 'rt-mq-sync',   icon: 'Folder', label: '实时采集+计算' },
+      { key: 'test-of-sync', icon: 'Folder', label: 'test_of_sync' },
     ],
   },
   {
-    key: 'group-b', icon: 'folder', label: '数据建模',
+    key: 'group-b', icon: 'Folder', label: '数据建模',
     children: [
-      { key: '360-profiling', icon: 'folder', label: '360-degree User Profiling Scenarios' },
-      { key: 'vip-tagging',   icon: 'folder', label: 'Rules for tagging VIP customers' },
+      { key: '360-profiling', icon: 'Folder', label: '360-degree User Profiling Scenarios' },
+      { key: 'vip-tagging',   icon: 'Folder', label: 'Rules for tagging VIP customers' },
     ],
   },
   {
-    key: 'group-c', icon: 'folder', label: '金融风控',
+    key: 'group-c', icon: 'Folder', label: '金融风控',
     children: [
-      { key: 'hot-ac',             icon: 'folder', label: 'HOT-AC' },
-      { key: 'abnormal-detection', icon: 'folder', label: 'Abnormal Detection' },
-      { key: 'product-bundling',   icon: 'folder', label: 'Product Bundling' },
-      { key: 'maybank-poc',        icon: 'folder', label: 'MayBank-POC' },
-      { key: 'screen',             icon: 'folder', label: '大屏' },
-      { key: 'test1',              icon: 'folder', label: 'Test1' },
-      { key: 'ca-scene',           icon: 'folder', label: '国航场景' },
-      { key: 'liaoshen-poc',       icon: 'folder', label: 'LiaoShenBank-POC' },
-      { key: 'mq',                 icon: 'folder', label: 'mq' },
-      { key: 'ai-scene',           icon: 'folder', label: 'AI场景' },
-      { key: 'hot-account-ai',     icon: 'folder', label: 'hot-account-ai' },
-      { key: 'dm-gova',            icon: 'folder', label: 'dm_gova' },
+      { key: 'hot-ac',             icon: 'Folder', label: 'HOT-AC' },
+      { key: 'abnormal-detection', icon: 'Folder', label: 'Abnormal Detection' },
+      { key: 'product-bundling',   icon: 'Folder', label: 'Product Bundling' },
+      { key: 'maybank-poc',        icon: 'Folder', label: 'MayBank-POC' },
+      { key: 'screen',             icon: 'Folder', label: '大屏' },
+      { key: 'test1',              icon: 'Folder', label: 'Test1' },
+      { key: 'ca-scene',           icon: 'Folder', label: '国航场景' },
+      { key: 'liaoshen-poc',       icon: 'Folder', label: 'LiaoShenBank-POC' },
+      { key: 'mq',                 icon: 'Folder', label: 'mq' },
+      { key: 'ai-scene',           icon: 'Folder', label: 'AI场景' },
+      { key: 'hot-account-ai',     icon: 'Folder', label: 'hot-account-ai' },
+      { key: 'dm-gova',            icon: 'Folder', label: 'dm_gova' },
     ],
   },
 ];

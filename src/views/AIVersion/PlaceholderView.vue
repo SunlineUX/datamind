@@ -27,7 +27,7 @@ const titleKey = computed(() => route.meta.titleKey || 'app.title');
   justify-content: center;
   gap: 8px;
   color: var(--text-tertiary);
-  background: var(--bg-panel);
+  /* background: var(--bg-panel); */
 }
 
 .placeholder__title {

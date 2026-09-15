@@ -61,12 +61,12 @@
                 </span>
                 <span class="json-form__table-cell json-form__table-op">
                   <button class="json-form__row-del" :title="t('common.close')" @click="formData[field.key].splice(ri, 1)">
-                    <Icon name="x" :size="13" />
+                    <DmIcon name="Close" :size="13" />
                   </button>
                 </span>
               </div>
               <button class="json-form__row-add" @click="formData[field.key].push({})">
-                <Icon name="plus" :size="12" />
+                <DmIcon name="CircleAdd" :size="12" />
                 {{ t('develop.form.addRow') }}
               </button>
             </div>
@@ -78,7 +78,7 @@
     <!-- 底部操作 -->
     <div class="json-form__footer">
       <span v-if="saved" class="json-form__saved">
-        <Icon name="check-circle" :size="14" />
+        <DmIcon name="CouponCheck" :size="14" />
         {{ t('develop.form.saved') }}
       </span>
       <DmButton type="primary" size="small" @click="handleSave">{{ t('develop.form.save') }}</DmButton>
@@ -88,8 +88,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { DmButton, DmInput, DmSelect } from '@/components/dm';
-import { Icon } from '@/layout/icons';
+import { DmButton, DmInput, DmSelect, DmIcon } from '@/components/dm';
 import { useLocale } from '@/composables/useLocale';
 
 const props = defineProps({

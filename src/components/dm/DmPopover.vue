@@ -146,12 +146,13 @@ onBeforeUnmount(() => {
 
 .dm-popover__trigger {
   display: inline-flex;
+  width: 100%;
 }
 
 .dm-popover__panel {
   min-width: 160px;
   max-width: 320px;
-  padding: 12px;
+  padding: var(--space-sm);
   font-size: 14px;
   text-align: left;
   background: var(--bg-overlay);

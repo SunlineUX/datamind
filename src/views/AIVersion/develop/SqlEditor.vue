@@ -3,7 +3,7 @@
     <!-- 工具栏：执行 + 格式化 -->
     <div class="sql-editor__toolbar">
       <DmButton size="small" type="primary" @click="handleRun">
-        <template #icon><Icon name="play" :size="13" /></template>
+        <template #icon><DmIcon name="ArrowRight" :size="13" /></template>
         {{ t('develop.editor.run') }}
       </DmButton>
       <DmButton size="small" @click="handleFormat">{{ t('develop.editor.format') }}</DmButton>
@@ -28,11 +28,11 @@
     <!-- 运行日志 -->
     <div v-if="logs.length && showLog" class="sql-editor__log">
       <div class="sql-editor__log-head">
-        <Icon name="terminal" :size="13" />
+        <DmIcon name="Terminal" :size="13" />
         <span>{{ t('develop.editor.runTitle') }}</span>
         <span class="sql-editor__spacer" />
         <button class="sql-editor__log-btn" @click="clearLogs">{{ t('develop.editor.clearLog') }}</button>
-        <button class="sql-editor__log-btn" @click="showLog = false"><Icon name="chevron-down" :size="13" /></button>
+        <button class="sql-editor__log-btn" @click="showLog = false"><DmIcon name="ArrowDown" :size="13" /></button>
       </div>
       <div class="sql-editor__log-body">
         <div v-for="(log, i) in logs" :key="i" class="sql-editor__log-line" :class="`is-${log.level}`">
@@ -46,8 +46,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { DmButton } from '@/components/dm';
-import { Icon } from '@/layout/icons';
+import { DmButton, DmIcon } from '@/components/dm';
 import { useLocale } from '@/composables/useLocale';
 
 const props = defineProps({
